@@ -19,17 +19,17 @@ executable('vbl',            'vbl.cpp',    dependencies: curses_dyn,
 
     lnk        =             obj.extract_objects('vbl.cpp')
 
-executable('vbl-strip',      objects: lnk, dependencies: curses_dyn,
-        link_args: '-Wl,--strip-all')
+# executable('vbl-strip',      objects: lnk, dependencies: curses_dyn,
+#         link_args: '-Wl,--strip-all')
 
-executable('vbl-stat',       objects: lnk, dependencies: curses_sta,
-        link_args: '-static')
+# executable('vbl-stat',       objects: lnk, dependencies: curses_sta,
+#         link_args: '-static')
 
-executable('vbl-stat-strip', objects: lnk, dependencies: curses_sta,
-        link_args: ['-static', '-Wl,--strip-all'])
+# executable('vbl-stat-strip', objects: lnk, dependencies: curses_sta,
+#         link_args: ['-static', '-Wl,--strip-all'])
 
-custom_target('vbl-asm', input : obj, output : 'vbl_dis.lst',
-        env : {'MESON_BUILD_ROOT': meson.current_build_dir()},
-        command : ['get-asm.sh', '@INPUT@'],
-        capture : true, build_by_default : true)
+# custom_target('vbl-asm', input : obj, output : 'vbl_dis.lst',
+#         env : {'MESON_BUILD_ROOT': meson.current_build_dir()},
+#         command : ['get-asm.sh', '@INPUT@'],
+#         capture : true, build_by_default : true)
 

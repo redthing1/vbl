@@ -58,11 +58,15 @@
 #include <fcntl.h>
 #include <time.h>
 #include <err.h>
+#include <wchar.h>
+#include <locale.h>
 
 #include <string>
 #include <deque>
 
+#define NCURSES_WIDECHAR 1
 #include <ncurses.h>
+#include <curses.h>
 
 using namespace std;
 
@@ -1029,7 +1033,7 @@ void FileDisplay::display()
                         * 100
                         / (filesize > bufSize ? filesize : bufSize);
 
-        char bufStat[screenWidth + 1] = { 0 };
+        char bufStat[screenWidth + 1];
         memset(bufStat, ' ', screenWidth);
 
         char buf[96],
@@ -1077,8 +1081,8 @@ void FileDisplay::display()
                 cwinF.putAttribs(size_name + (pc - buf), 0, cSearch, 1);
         }
 
-        char bufHex[screenWidth + 1] = { 0 },
-             bufAsc[  lineWidth + 1] = { 0 };
+        char bufHex[screenWidth + 1],
+             bufAsc[  lineWidth + 1];
 
         for (row=0; row < numLines; ++row) {
                 memset(bufHex, ' ', screenWidth);
@@ -1217,8 +1221,8 @@ void FileDisplay::editOut(short outOffset)
 {
         FPos lineOffset = offset + outOffset;
 
-        char bufHex[screenWidth + 1] = { 0 },
-             bufAsc[  lineWidth + 1] = { 0 };
+        char bufHex[screenWidth + 1],
+             bufAsc[  lineWidth + 1];
 
         for (int row=0; row < numLines; ++row) {
                 memset(bufHex, ' ', screenWidth);
@@ -1364,7 +1368,8 @@ Size FileDisplay::finish(int init=0)
 {
         timespec ts;
 
-        clock_gettime(CLOCK_TAI, &ts);
+        // clock_gettime(CLOCK_TAI, &ts);
+        clock_gettime(CLOCK_MONOTONIC, &ts);
 
         if (init) {
                 laptime = ts.tv_sec * 1000000000 + ts.tv_nsec;
