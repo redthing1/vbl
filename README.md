@@ -1,5 +1,5 @@
 
-# vbl: a VBinDiff fork
+# vbl: a vbindiff fork
 
 based heavily on [linuxcowboy's code](https://github.com/linuxCowboy/vbl)
 
